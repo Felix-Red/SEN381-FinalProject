@@ -1,8 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : 29 Oct 2024, 12:38:10
-    Author     : felix
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
