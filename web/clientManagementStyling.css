@@ -1,18 +1,28 @@
 body {
     font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
     background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
 }
 
-.form-container, .client-list-container {
+.main-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.form-container {
+    width: 50%;
     background-color: #ffffff;
     padding: 20px;
-    width: 700px; /* Made containers wider */
-    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.client-list-container {
+    width: 45%;
+    background-color: #ffffff;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -20,7 +30,7 @@ body {
 h1, h2 {
     font-size: 24px;
     color: #333;
-    text-align: center;
+    text-align: left;
     margin-bottom: 20px;
 }
 
@@ -30,10 +40,19 @@ form {
     gap: 15px;
 }
 
+.form-group {
+    display: flex;
+    gap: 10px;
+}
+
+.form-group label,
+.form-group input {
+    flex: 1;
+}
+
 label {
     font-weight: bold;
     color: #333;
-    margin-bottom: 5px;
 }
 
 input[type="text"],
