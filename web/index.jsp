@@ -69,7 +69,7 @@
             <li>Scalability through automation and predictive insights</li>
         </ul>
     </section>
-
+  
     <!-- Footer Section -->
     <footer id="contact">
         <p>© 2024 ApexCare Solutions | <a href="mailto:info@apexcaresolutions.com">info@apexcaresolutions.com</a></p>
