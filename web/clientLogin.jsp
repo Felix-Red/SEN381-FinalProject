@@ -4,7 +4,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Client Login</title>
-        <link rel="stylesheet" href="clientLoginStyles.css">
+        <link rel="stylesheet" href="Styling/clientLoginStyles.css">
     </head>
     <body>
         <div class="login-container">

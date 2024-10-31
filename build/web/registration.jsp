@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Registration</title>
-        <link rel="stylesheet" href="registrationStyles.css">
+        <link rel="stylesheet" href="Styling/registrationStyles.css">
     </head>
     <body>
         <div class="container">

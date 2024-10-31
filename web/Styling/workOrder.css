@@ -1,0 +1,30 @@
+/* Table styling */
+.work-order-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.work-order-table th, .work-order-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.work-order-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.work-order-table tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.work-order-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+

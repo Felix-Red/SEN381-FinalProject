@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Employee Login</title>
-        <link rel="stylesheet" href="employeeLoginStyles.css">
+        <link rel="stylesheet" href="Styling/employeeLoginStyles.css">
     </head>
     <body>
         <div class="login-container">

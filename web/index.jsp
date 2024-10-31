@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>ApexCare Solutions</title>
-        <link rel="stylesheet" href="indexStyles.css">
+        <link rel="stylesheet" href="Styling/indexStyles.css">
     </head>
     <body>
         <header>
