@@ -13,7 +13,7 @@
             <h1>ApexCare Solutions</h1>
             <nav>
                 <a href="index.jsp">Home</a>
-                <a href="login.jsp">Login</a>
+                <a href="clientLogin.jsp">Login</a>
                 <a href="registration.jsp">Sign Up</a>
                 <a href="#features">Features</a>
                 <a href="#contact">Contact</a>
