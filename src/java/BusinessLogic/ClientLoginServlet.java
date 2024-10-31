@@ -4,6 +4,8 @@
  */
 package BusinessLogic;
 
+import DataLayer.DBConnection;
+import java.sql.Connection;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +13,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -71,8 +78,31 @@ public class ClientLoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+         String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        try (Connection conn = DBConnection.getConnection()) {
+            String query = "SELECT * FROM clients WHERE email = ? AND password = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setString(1, email);
+                stmt.setString(2, password);
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("clientEmail", email);
+                    response.sendRedirect("clientDashboard.jsp");
+                } else {
+                    request.setAttribute("errorMessage", "Invalid email or password.");
+                    request.getRequestDispatcher("clientLogin.jsp").forward(request, response);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("error.jsp");
+        }
     }
+   
 
     /**
      * Returns a short description of the servlet.
