@@ -15,7 +15,7 @@
     <body>
         <div class="container">
         <h1>ApexCare Client Registration</h1>
-        <form action="submitRegistration" method="post" class="registration-form">
+        <form action="RegisterServlet" method="post" class="registration-form">
             <!-- Basic Client Details -->
             <div class="form-section">
                 <h2>Basic Information</h2>

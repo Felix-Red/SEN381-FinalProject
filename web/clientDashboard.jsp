@@ -5,11 +5,29 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="jakarta.servlet.http.HttpSession"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>ApexCare Solutions Dashboard</title>
+        <link rel="stylesheet" href="Styling/clientDashboard.css"/>
+        <style>
+        /* Additional CSS styles for better presentation */
+        .hidden {
+            display: none; /* Class to hide sections */
+        }
+    </style>
+    <script>
+        // JavaScript function to toggle section visibility
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.add('hidden'); // Hide all sections
+            });
+            document.getElementById(sectionId).classList.remove('hidden'); // Show selected section
+        }
+    </script>
     </head>
     <body>
         <div class="container">
@@ -30,7 +48,14 @@
         
         <div class="main-content">
             <header class="header">
-                <h1>Welcome, [Client's Name]</h1>
+                <% 
+                    //HttpSession session = request.getSession();
+                    String clientName = (String) session.getAttribute("clientName");
+                    if (clientName == null) {
+                        clientName = "Guest"; // Default name if not logged in
+                    }
+                %>
+                <h1>Welcome, <%= clientName %></h1>
             </header>
 
             
@@ -81,5 +106,9 @@
             </section>
         </div>
     </div>
+        <script>
+        
+        showSection('overview');
+    </script>
     </body>
 </html>

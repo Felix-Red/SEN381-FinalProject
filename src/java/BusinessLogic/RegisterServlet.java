@@ -4,27 +4,27 @@
  */
 package BusinessLogic;
 
+
 import DataLayer.DBConnection;
-import java.sql.Connection;
-import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
  * @author user-pc
  */
-@WebServlet(name = "ClientLoginServlet", urlPatterns = {"/ClientLoginServlet"})
-public class ClientLoginServlet extends HttpServlet {
+@WebServlet(name = "RegisterServlet", urlPatterns = {"/RegisterServlet"})
+public class RegisterServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +43,10 @@ public class ClientLoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ClientLoginServlet</title>");
+            out.println("<title>Servlet RegisterServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ClientLoginServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet RegisterServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -78,33 +78,54 @@ public class ClientLoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String name = request.getParameter("name");
+        String company = request.getParameter("company");
         String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        String serviceType = request.getParameter("serviceType");
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        String priority = request.getParameter("priority");
+        String comments = request.getParameter("comments");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password"); 
 
-        try (Connection conn = DBConnection.getConnection()) {
-            String query = "SELECT * FROM public.clients WHERE email = ? AND password = ?";
-            try (PreparedStatement stmt = conn.prepareStatement(query)) {
-                stmt.setString(1, email);
-                stmt.setString(2, password);
-                ResultSet rs = stmt.executeQuery();
+        // Connect to the database and insert the new user
+        LocalDate startLocalDate = LocalDate.parse(startDate);
+    LocalDate endLocalDate = LocalDate.parse(endDate);
+    Date sqlStartDate = Date.valueOf(startLocalDate);
+    Date sqlEndDate = Date.valueOf(endLocalDate);
 
-                if (rs.next()) {
-                    String clientName = rs.getString("name");
-                    HttpSession session = request.getSession();
-                    session.setAttribute("clientEmail", email);
-                    session.setAttribute("clientName", clientName);
-                    response.sendRedirect("clientDashboard.jsp");
-                } else {
-                    request.setAttribute("errorMessage", "Invalid email or password.");
-                    request.getRequestDispatcher("clientLogin.jsp").forward(request, response);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendRedirect("error.jsp");
+    // Connect to the database and insert the new user
+    try (Connection conn = DBConnection.getConnection()) { 
+        String sql = "INSERT INTO public.clients (name, company, email, phone, address, service_type, " +
+                     "contract_start_date, contract_end_date, priority_level, comments, username, password) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, name);
+            stmt.setString(2, company); 
+            stmt.setString(3, email);
+            stmt.setString(4, phone);
+            stmt.setString(5, address); 
+            stmt.setString(6, serviceType);
+            stmt.setDate(7, sqlStartDate); // Use sqlDate
+            stmt.setDate(8, sqlEndDate); // Use sqlDate
+            stmt.setString(9, priority);
+            stmt.setString(10, comments);
+            stmt.setString(11, username);
+            stmt.setString(12, password); 
+
+            stmt.executeUpdate();
         }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        // Handle exceptions, possibly redirect to an error page
     }
-   
+
+    // Redirect to the login page after successful registration
+    response.sendRedirect("clientLogin.jsp");
+    }
 
     /**
      * Returns a short description of the servlet.
