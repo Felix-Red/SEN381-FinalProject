@@ -13,11 +13,11 @@
             <img src="Styling/Updated_ApexCare_Solutions_Logo.png" alt="Profile Picture" class="sidebar-image">
             <h2>Menu</h2>
             <ul>
-                <li><a href="adminDashboard.jsp">DashBoard</a></li>
+                <li><a href="DashboardServlet">DashBoard</a></li>
                 <li><a href="workOrder.jsp" onclick="loadContent('workOrder.jsp'); return false;">Work order</a></li>
                 <li><a href="displayRequests.jsp" onclick="loadContent('displayRequests.jsp'); return false;">Requests</a></li>
+                <li><a href="TechniciansServlet" onclick="loadContent('TechniciansServlet'); return false;">Technicians</a></li>
                 <li><a href="Technicians.jsp" onclick="loadContent('Technicians.jsp'); return false;">Technicians</a></li>
-                 <li><a href="Technicians.jsp" onclick="loadContent('Technicians.jsp'); return false;">Technicians</a></li>
             </ul>
         </div>
         
@@ -47,9 +47,11 @@
                 
                 <div class="counter-box">
                     <div class="icon">&#128100;</div> <!-- Example icon for Total Technician -->
-                    <h2 id="totalTechnicianCount">0</h2>
+                    <h2 id="totalTechnicianCount">
+                        <%= request.getAttribute("totalTechnicianCount") != null ? request.getAttribute("totalTechnicianCount") : 0 %>
+                    </h2>
                     <p>Total Technician</p>
-                    <small>Total No of Technician</small>
+                    <small>Total No of Technicians</small>
                 </div>
                 
                 <div class="counter-box">

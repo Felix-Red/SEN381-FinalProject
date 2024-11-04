@@ -14,21 +14,88 @@
     </head>
     <body>
         <div class="container">
-            <h1>Schedule your appointment</h1>
-            <form action="submitAppointment" method="post">
-                <label for="name">Name: </label>
-                <input type="text" id="name" name="name" required><br>
-                <label for="email">Email: </label>
-                <input type="email" id="email" name="email" required><br>
-                <label for="date">Appointment Date: </label>
-                <input type="date" id="date" name="date" required><br>
-                <label for="serviceType">Service Type: </label>
-                <input type="text" id="serviceType" name="serviceType" required><br>
-                <label for="comments">Comments: </label>
-                <textarea id="commemts" name="comments"></textarea><br>
-                
-                <input type="submit" value="Submit">
-            </form>
-        </div>
+        <h1>ApexCare Client Registration</h1>
+        <form action="RegisterServlet" method="post" class="registration-form">
+            <!-- Basic Client Details -->
+            <div class="form-section">
+                <h2>Basic Information</h2>
+                <div class="grid-container">
+                    <div class="form-row">
+                        <label for="name">Full Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-row">
+                        <label for="company">Company Name:</label>
+                        <input type="text" id="company" name="company">
+                    </div>
+                    <div class="form-row">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-row">
+                        <label for="phone">Phone Number:</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-row">
+                        <label for="address">Address:</label>
+                        <input type="text" id="address" name="address">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contract and Service Details -->
+            <div class="form-section">
+                <h2>Contract Details</h2>
+                <div class="grid-container">
+                    <div class="form-row">
+                        <label for="serviceType">Service Type:</label>
+                        <select id="serviceType" name="serviceType" required>
+                            <option value="standard">Standard</option>
+                            <option value="premium">Premium</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label for="startDate">Contract Start Date:</label>
+                        <input type="date" id="startDate" name="startDate" required>
+                    </div>
+                    <div class="form-row">
+                        <label for="endDate">Contract End Date:</label>
+                        <input type="date" id="endDate" name="endDate">
+                    </div>
+                    <div class="form-row">
+                        <label for="priority">Priority Level:</label>
+                        <select id="priority" name="priority">
+                            <option value="standard">Standard</option>
+                            <option value="high">High Priority</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label for="comments">Comments or Special Instructions:</label>
+                        <textarea id="comments" name="comments"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Login Details -->
+            <div class="form-section">
+                <h2>Login Details</h2>
+                <div class="grid-container">
+                    <div class="form-row">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-row">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-row">
+                        <label for="confirmPassword">Confirm Password:</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" value="Register" class="submit-button">
+        </form>
+    </div>
     </body>
 </html>

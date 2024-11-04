@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work Order</title>
-    <link rel="stylesheet" href="Styling/adminDashboard.css">
+    <title>Work Order - Page 1</title>
+    <link rel="stylesheet" href="Styling/style.css">
     <link rel="stylesheet" href="Styling/workOrder.css">
 </head>
 <body>
