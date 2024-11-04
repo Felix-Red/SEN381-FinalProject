@@ -27,13 +27,13 @@
             </nav>
         </aside>
 
-        <!-- Main Content Area -->
+        
         <div class="main-content">
             <header class="header">
                 <h1>Welcome, [Client's Name]</h1>
             </header>
 
-            <!-- Overview Section -->
+            
             <section id="overview" class="section">
                 <h2>Dashboard Overview</h2>
                 <div class="card-container">
