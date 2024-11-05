@@ -10,16 +10,42 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        input[type="button"], input[type="submit"] {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
     </head>
     <body>
-        <h1>Contract Management</h1>
+        <h1>Contract Management</h1><br><br>
 
 <!-- Table to display current contracts -->
 <table>
     <thead>
         <tr>
             <th>Contract ID</th>
-            <th>Client ID</th>
             <th>Contract Terms</th>
             <th>Start Date</th>
             <th>End Date</th>
@@ -30,13 +56,13 @@
     <tbody>
        
     </tbody>
-</table>
+</table><br><br>
 
 <!-- Button to add a new contract -->
-<h2>Add New Contract</h2>
+<h2>Add New Contract</h2><br>
 <form action="CreateContractServlet" method="post">
-    <label for="clientId">Client ID:</label>
-    <input type="number" id="clientId" name="clientId" required><br><br>
+    <label for="clientName">Client Name:</label>
+    <input type="text" id="clientName" name="clientName" required><br><br>
 
     <label for="contractTerms">Contract Terms:</label><br>
     <textarea id="contractTerms" name="contractTerms" rows="4" cols="50" required></textarea><br><br>

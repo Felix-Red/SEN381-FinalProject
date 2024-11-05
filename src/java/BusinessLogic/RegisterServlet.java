@@ -18,6 +18,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import com.sendgrid.Content;
+import com.sendgrid.Email;
+import com.sendgrid.Mail;
+import com.sendgrid.Method;
+import com.sendgrid.Request;
+import com.sendgrid.SendGrid;
 
 /**
  *
@@ -75,6 +83,34 @@ public class RegisterServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private void sendConfirmationEmail(String name, String email, String startDate, String serviceType) {
+        try {
+//            LOGGER.info("Sending confirmation email to: " + email);
+
+            String sendGridApiKey = "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";
+            Email from = new Email("577502@student.belgiumcampus.ac.za");
+            String subject = "Welcome to ApexCare Solutions!";
+            Email to = new Email(email);
+            Content content = new Content("text/plain", "Dear " + name + ",\n\n" +
+                    "Thank you for registering with ApexCare Solutions. Your subscription for the " + serviceType + 
+                    " service starts on " + startDate + ".\n\n" +
+                    "If you have any questions, feel free to contact us.\n\n" +
+                    "Best regards,\nApexCare Solutions");
+
+            Mail mail = new Mail(from, subject, to, content);
+            SendGrid sg = new SendGrid(sendGridApiKey);
+            Request request = new Request();
+            request.setMethod(Method.POST);
+            request.setEndpoint("mail/send");
+            request.setBody(mail.build());
+
+            sg.api(request);
+//            LOGGER.info("Email sent successfully.");
+        } catch (Exception e) {
+//            LOGGER.log(Level.SEVERE, "Error while sending email", e);
+        }
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -117,6 +153,7 @@ public class RegisterServlet extends HttpServlet {
             stmt.setString(12, password); 
 
             stmt.executeUpdate();
+            sendConfirmationEmail(name, email, startDate, serviceType);
         }
     } catch (SQLException e) {
         e.printStackTrace();
