@@ -26,6 +26,7 @@ import com.sendgrid.Mail;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
 import com.sendgrid.SendGrid;
+import java.util.Properties;
 
 /**
  *
@@ -86,8 +87,11 @@ public class RegisterServlet extends HttpServlet {
     private void sendConfirmationEmail(String name, String email, String startDate, String serviceType) {
         try {
 //            LOGGER.info("Sending confirmation email to: " + email);
-
-            String sendGridApiKey = "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";
+            
+            Properties properties = new Properties();
+            //properties.load();
+            
+            String sendGridApiKey = "";
             Email from = new Email("577502@student.belgiumcampus.ac.za");
             String subject = "Welcome to ApexCare Solutions!";
             Email to = new Email(email);
