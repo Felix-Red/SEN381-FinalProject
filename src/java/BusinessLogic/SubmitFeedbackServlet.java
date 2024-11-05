@@ -5,7 +5,6 @@
 package BusinessLogic;
 
 import DataLayer.DBConnection;
-import java.sql.Connection;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,17 +13,18 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.PreparedStatement;
 
 /**
  *
  * @author user-pc
  */
-@WebServlet(name = "ClientLoginServlet", urlPatterns = {"/ClientLoginServlet"})
-public class ClientLoginServlet extends HttpServlet {
+@WebServlet(name = "SubmitFeedbackServlet", urlPatterns = {"/SubmitFeedbackServlet"})
+public class SubmitFeedbackServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +43,10 @@ public class ClientLoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ClientLoginServlet</title>");
+            out.println("<title>Servlet SubmitFeedbackServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ClientLoginServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SubmitFeedbackServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -78,48 +78,29 @@ public class ClientLoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-
+        String clientId = request.getParameter("clientId"); // Get client ID from the request
+        String satisfaction = request.getParameter("satisfaction");
+        String comments = request.getParameter("comments");
+        
+        // Connect to the database and insert the feedback
         try (Connection conn = DBConnection.getConnection()) {
-            String query = "SELECT * FROM public.clients WHERE email = ? AND password = ?";
-            try (PreparedStatement stmt = conn.prepareStatement(query)) {
-                stmt.setString(1, email);
-                stmt.setString(2, password);
-                ResultSet rs = stmt.executeQuery();
-
-                if (rs.next()) {
-                int clientId = rs.getInt("client_id");
-                String clientName = rs.getString("name");
-                String clientCompany = rs.getString("company");
-                String clientEmail = rs.getString("email");
-                String clientPhone = rs.getString("phone");
-                String clientAddress = rs.getString("address");
-                String clientServiceType = rs.getString("service_type");
-                String clientComments = rs.getString("comments");
-                
-                HttpSession session = request.getSession();
-                session.setAttribute("clientId", clientId); 
-                session.setAttribute("clientEmail", clientEmail);
-                session.setAttribute("clientName", clientName);
-                session.setAttribute("clientCompany", clientCompany);
-                session.setAttribute("clientPhone", clientPhone);
-                session.setAttribute("clientAddress", clientAddress);
-                session.setAttribute("clientServiceType", clientServiceType);
-                session.setAttribute("clientComments", clientComments);
-                    
-                    response.sendRedirect("clientDashboard.jsp");
-                } else {
-                    request.setAttribute("errorMessage", "Invalid email or password.");
-                    request.getRequestDispatcher("clientLogin.jsp").forward(request, response);
-                }
+            String sql = "INSERT INTO feedback (client_id, satisfaction_rating, comments) VALUES (?, ?, ?)";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, Integer.parseInt(clientId)); // Set the client ID
+                stmt.setInt(2, Integer.parseInt(satisfaction));
+                stmt.setString(3, comments);
+                stmt.executeUpdate();
             }
-        } catch (Exception e) {
+            HttpSession session = request.getSession();
+            session.setAttribute("successMessage", "Feedback submitted successfully!");
+            response.sendRedirect("clientDashboard.jsp");
+        } catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("error.jsp");
-        }
+           
+        } 
+
+       
     }
-   
 
     /**
      * Returns a short description of the servlet.
