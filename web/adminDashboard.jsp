@@ -17,7 +17,8 @@
                 <li><a href="workOrder.jsp" onclick="loadContent('workOrder.jsp'); return false;">Work order</a></li>
                 <li><a href="displayRequests.jsp" onclick="loadContent('displayRequests.jsp'); return false;">Requests</a></li>
                 <li><a href="TechniciansServlet" onclick="loadContent('TechniciansServlet'); return false;">Technicians</a></li>
-                <li><a href="Technicians.jsp" onclick="loadContent('Technicians.jsp'); return false;">Technicians</a></li>
+                <li><a href="employeeRegistry.jsp" onclick="loadContent('employeeRegistry.jsp'); return false;">Register Employee</a></li>
+
             </ul>
         </div>
         

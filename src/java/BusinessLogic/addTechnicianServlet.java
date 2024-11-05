@@ -40,6 +40,6 @@ public class addTechnicianServlet extends HttpServlet {
         }
 
         // Redirect back to the main page or a success page after form submission
-        response.sendRedirect("TechniciansServlet");
+        response.sendRedirect("DashboardServlet");
     }
 }

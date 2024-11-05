@@ -34,6 +34,6 @@ public class DeleteTechnicianServlet extends HttpServlet {
         }
 
         // Redirect back to the Technicians list page
-        response.sendRedirect("TechniciansServlet");
+        response.sendRedirect("DashboardServlet");
     }
 }

@@ -14,16 +14,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-//import javax.servlet.ServletException;
-//import javax.servlet.annotation.WebServlet;
-//import javax.servlet.http.HttpServlet;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-//import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -45,7 +38,6 @@ public class EmployeeLoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -83,24 +75,38 @@ public class EmployeeLoginServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException 
-    {
+            throws ServletException, IOException {
         
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
         try (Connection conn = DBConnection.getConnection()) {
-            String query = "SELECT * FROM employees WHERE username = ? AND password = ?";
+            // Check if the Employees table exists
+            String checkTableQuery = "SELECT 1 FROM employees LIMIT 1";
+            try (PreparedStatement checkTableStmt = conn.prepareStatement(checkTableQuery)) {
+                checkTableStmt.executeQuery();
+            } catch (SQLException tableNotFound) {
+                // Table does not exist
+                request.setAttribute("errorMessage", "The Employees table does not exist.");
+                request.getRequestDispatcher("employeeLogin.jsp").forward(request, response);
+                return;
+            }
+
+            // Table exists, proceed to authenticate the user
+            String query = "SELECT * FROM Employees WHERE username = ? AND password = ?";
             try (PreparedStatement stmt = conn.prepareStatement(query)) {
                 stmt.setString(1, username);
                 stmt.setString(2, password);
                 ResultSet rs = stmt.executeQuery();
 
                 if (rs.next()) {
+                    // Employee exists and password matches
                     HttpSession session = request.getSession();
                     session.setAttribute("employeeUsername", username);
-                    response.sendRedirect("employeeDashboard.jsp");
+                    session.setAttribute("successMessage", "Logged in successfully.");
+                    response.sendRedirect("DashboardServlet");
                 } else {
+                    // Invalid credentials
                     request.setAttribute("errorMessage", "Invalid username or password.");
                     request.getRequestDispatcher("employeeLogin.jsp").forward(request, response);
                 }
@@ -111,8 +117,6 @@ public class EmployeeLoginServlet extends HttpServlet {
         }
     }
 
-    
-
     /**
      * Returns a short description of the servlet.
      *
@@ -120,7 +124,6 @@ public class EmployeeLoginServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Employee login servlet that checks table existence and verifies credentials.";
     }// </editor-fold>
-
 }
