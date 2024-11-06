@@ -27,6 +27,7 @@ import com.sendgrid.Method;
 import com.sendgrid.Request;
 import com.sendgrid.SendGrid;
 import java.util.Properties;
+import java.sql.ResultSet;
 
 /**
  *
@@ -132,33 +133,54 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password"); 
 
         // Connect to the database and insert the new user
-        LocalDate startLocalDate = LocalDate.parse(startDate);
+    LocalDate startLocalDate = LocalDate.parse(startDate);
     LocalDate endLocalDate = LocalDate.parse(endDate);
     Date sqlStartDate = Date.valueOf(startLocalDate);
     Date sqlEndDate = Date.valueOf(endLocalDate);
+    LocalDate renewalLocalDate = startLocalDate.plusYears(1);
+    Date sqlRenewalDate = Date.valueOf(renewalLocalDate);
 
     // Connect to the database and insert the new user
     try (Connection conn = DBConnection.getConnection()) { 
         String sql = "INSERT INTO public.clients (name, company, email, phone, address, service_type, " +
                      "contract_start_date, contract_end_date, priority_level, comments, username, password) " +
                      "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, name);
-            stmt.setString(2, company); 
-            stmt.setString(3, email);
-            stmt.setString(4, phone);
-            stmt.setString(5, address); 
-            stmt.setString(6, serviceType);
-            stmt.setDate(7, sqlStartDate); // Use sqlDate
-            stmt.setDate(8, sqlEndDate); // Use sqlDate
-            stmt.setString(9, priority);
-            stmt.setString(10, comments);
-            stmt.setString(11, username);
-            stmt.setString(12, password); 
+        int clientId = 0;
+        try (PreparedStatement clientStmt = conn.prepareStatement(sql)) {
+            clientStmt.setString(1, name);
+            clientStmt.setString(2, company);
+            clientStmt.setString(3, email);
+            clientStmt.setString(4, phone);
+            clientStmt.setString(5, address);
+            clientStmt.setString(6, serviceType);
+            clientStmt.setDate(7, sqlStartDate);
+            clientStmt.setDate(8, sqlEndDate);
+            clientStmt.setString(9, priority);
+            clientStmt.setString(10, comments);
+            clientStmt.setString(11, username);
+            clientStmt.setString(12, password);
 
-            stmt.executeUpdate();
-            sendConfirmationEmail(name, email, startDate, serviceType);
+            ResultSet rs = clientStmt.executeQuery();
+            if (rs.next()) {
+                clientId = rs.getInt("client_id");  // Get the generated client ID
+            }
         }
+        if (clientId > 0) {  // Ensure client ID was retrieved
+            String contractSql = "INSERT INTO public.contract (client_id, contract_terms, start_date, end_date, renewal_date) " +
+                         "VALUES (?, ?, ?, ?, ?)";
+                try (PreparedStatement contractStmt = conn.prepareStatement(contractSql)) {
+                    contractStmt.setInt(1, clientId);
+                    contractStmt.setString(2, "Standard Terms");  // Adding 'contract_terms'
+                    contractStmt.setDate(3, sqlStartDate);
+                    contractStmt.setDate(4, sqlEndDate);
+                    contractStmt.setDate(5, sqlRenewalDate);  // Adding renewal date
+
+                    contractStmt.executeUpdate();
+                }
+        }
+
+            sendConfirmationEmail(name, email, startDate, serviceType);
+        
     } catch (SQLException e) {
         e.printStackTrace();
         // Handle exceptions, possibly redirect to an error page

@@ -4,6 +4,8 @@
     Author     : user-pc
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="DataLayer.Contract"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -42,25 +44,48 @@
         <h1>Contract Management</h1><br><br>
 
 <!-- Table to display current contracts -->
-<table>
-    <thead>
-        <tr>
-            <th>Contract ID</th>
-            <th>Contract Terms</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Renewal Date</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-       
-    </tbody>
-</table><br><br>
+<%
+    List<Contract> activeContracts = (List<Contract>) request.getAttribute("activeContracts");
+    if (activeContracts != null && !activeContracts.isEmpty()) {
+%>
+        <table>
+            <tr>
+                <th>Contract ID</th>
+                <th>Contract Terms</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+            <% 
+                for (Contract contract : activeContracts) {
+            %>
+                <tr>
+                    <td><%= contract.getContractId() %></td>
+                    <td><%= contract.getContractTerms() %></td>
+                    <td><%= contract.getStartDate() %></td>
+                    <td><%= contract.getEndDate() %></td>
+                </tr>
+            <%
+                }
+            %>
+        </table>
+<%
+    } else {
+        out.println("No active contracts.");
+    }
+%><br><br>
 
 <!-- Button to add a new contract -->
 <h2>Add New Contract</h2><br>
-<form action="CreateContractServlet" method="post">
+<form action="ContractServlet" method="post">
+    <%
+                //HttpSession session = request.getSession();
+                Integer clientId = (Integer) session.getAttribute("clientId"); // Replace with your actual session attribute key
+                if (clientId != null) {
+            %>
+            <input type="hidden" name="clientId" value="<%= clientId %>">
+            <% } else { %>
+            <p>Error: Client ID not found in session. Please log in.</p>
+            <% } %>
     <label for="clientName">Client Name:</label>
     <input type="text" id="clientName" name="clientName" required><br><br>
 
@@ -72,9 +97,6 @@
 
     <label for="endDate">End Date:</label>
     <input type="date" id="endDate" name="endDate" required><br><br>
-
-    <label for="renewalDate">Renewal Date:</label>
-    <input type="date" id="renewalDate" name="renewalDate" required><br><br>
 
     <input type="submit" value="Add Contract">
 </form>
