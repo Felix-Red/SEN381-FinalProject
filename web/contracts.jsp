@@ -45,8 +45,8 @@
 
 <!-- Table to display current contracts -->
 <%
-    List<Contract> activeContracts = (List<Contract>) request.getAttribute("activeContracts");
-    if (activeContracts != null && !activeContracts.isEmpty()) {
+    List<Contract> contracts = (List<Contract>) request.getAttribute("contracts");
+    if (contracts != null && !contracts.isEmpty()) {
 %>
         <table>
             <tr>
@@ -54,15 +54,17 @@
                 <th>Contract Terms</th>
                 <th>Start Date</th>
                 <th>End Date</th>
+                <th>Renewal Date</th>
             </tr>
             <% 
-                for (Contract contract : activeContracts) {
+                for (Contract contract : contracts) {
             %>
                 <tr>
                     <td><%= contract.getContractId() %></td>
                     <td><%= contract.getContractTerms() %></td>
                     <td><%= contract.getStartDate() %></td>
                     <td><%= contract.getEndDate() %></td>
+                    <td><%= contract.getRenewalDate() %></td>
                 </tr>
             <%
                 }
@@ -77,29 +79,27 @@
 <!-- Button to add a new contract -->
 <h2>Add New Contract</h2><br>
 <form action="ContractServlet" method="post">
-    <%
-                //HttpSession session = request.getSession();
-                Integer clientId = (Integer) session.getAttribute("clientId"); // Replace with your actual session attribute key
-                if (clientId != null) {
-            %>
+        <%
+            //HttpSession session = request.getSession();
+            Integer clientId = (Integer) session.getAttribute("clientId"); 
+            if (clientId != null) {
+        %>
             <input type="hidden" name="clientId" value="<%= clientId %>">
-            <% } else { %>
+        <% } else { %>
             <p>Error: Client ID not found in session. Please log in.</p>
-            <% } %>
-    <label for="clientName">Client Name:</label>
-    <input type="text" id="clientName" name="clientName" required><br><br>
+        <% } %>
+        
+        <label for="contractTerms">Contract Terms:</label><br>
+        <textarea id="contractTerms" name="contractTerms" rows="4" cols="50" required></textarea><br><br>
 
-    <label for="contractTerms">Contract Terms:</label><br>
-    <textarea id="contractTerms" name="contractTerms" rows="4" cols="50" required></textarea><br><br>
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" required><br><br>
 
-    <label for="startDate">Start Date:</label>
-    <input type="date" id="startDate" name="startDate" required><br><br>
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" required><br><br>
 
-    <label for="endDate">End Date:</label>
-    <input type="date" id="endDate" name="endDate" required><br><br>
-
-    <input type="submit" value="Add Contract">
-</form>
+        <input type="submit" value="Add Contract">
+    </form>
 
     </body>
 </html>
