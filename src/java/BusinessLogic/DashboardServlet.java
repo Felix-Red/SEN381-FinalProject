@@ -16,21 +16,44 @@ import DataLayer.DBConnection;
 public class DashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int technicianCount = 0;
+        int customerCount = 0;
+        int newRequestCount = 0;
 
         try (Connection conn = DBConnection.getConnection()) {
-            String sql = "SELECT COUNT(*) AS count FROM tbltechnicians";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
+            // Get technician count
+            String sqlTechnicians = "SELECT COUNT(*) AS count FROM tbltechnicians";
+            PreparedStatement stmtTechnicians = conn.prepareStatement(sqlTechnicians);
+            ResultSet rsTechnicians = stmtTechnicians.executeQuery();
 
-            if (rs.next()) {
-                technicianCount = rs.getInt("count");
+            if (rsTechnicians.next()) {
+                technicianCount = rsTechnicians.getInt("count");
+            }
+
+            // Get customer count
+            String sqlCustomers = "SELECT COUNT(*) AS count FROM clients";
+            PreparedStatement stmtCustomers = conn.prepareStatement(sqlCustomers);
+            ResultSet rsCustomers = stmtCustomers.executeQuery();
+
+            if (rsCustomers.next()) {
+                customerCount = rsCustomers.getInt("count");
+            }
+
+            // Get new request count
+            String sqlRequests = "SELECT COUNT(*) AS count FROM requests";
+            PreparedStatement stmtRequests = conn.prepareStatement(sqlRequests);
+            ResultSet rsRequests = stmtRequests.executeQuery();
+
+            if (rsRequests.next()) {
+                newRequestCount = rsRequests.getInt("count");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // Set the technician count in the request attribute
+        // Set the technician, customer, and new request counts in the request attributes
         request.setAttribute("totalTechnicianCount", technicianCount);
+        request.setAttribute("totalCustomerCount", customerCount);
+        request.setAttribute("newRequestCount", newRequestCount);
 
         // Forward to the dashboard JSP page
         request.getRequestDispatcher("adminDashboard.jsp").forward(request, response);

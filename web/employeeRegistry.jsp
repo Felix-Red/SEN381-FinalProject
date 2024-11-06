@@ -11,6 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Registration</title>
         <link rel="stylesheet" href="Styling/employeeRegistry.css">
+        
     </head>
     <body>
         <div class="container">

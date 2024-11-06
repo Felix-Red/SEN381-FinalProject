@@ -18,7 +18,7 @@
                 <li><a href="displayRequests.jsp" onclick="loadContent('displayRequests.jsp'); return false;">Requests</a></li>
                 <li><a href="TechniciansServlet" onclick="loadContent('TechniciansServlet'); return false;">Technicians</a></li>
                 <li><a href="employeeRegistry.jsp" onclick="loadContent('employeeRegistry.jsp'); return false;">Register Employee</a></li>
-
+                <li><a href="FeedbackServlet" onclick="loadContent('FeedbackServlet'); return false;">FeedBack</a></li>
             </ul>
         </div>
         
@@ -32,11 +32,13 @@
             
             <!-- Counters Section -->
             <div class="counters">
-                <div class="counter-box">
+                 <div class="counter-box">
                     <div class="icon">&#128230;</div> <!-- Example icon for New Request -->
-                    <h2 id="newRequestCount">0</h2>
+                    <h2 id="newRequestCount">
+                        <%= request.getAttribute("newRequestCount") != null ? request.getAttribute("newRequestCount") : 0 %>
+                    </h2>
                     <p>New Request</p>
-                    <small>No of New Request</small>
+                    <small>No of New Requests</small>
                 </div>
                 
                 <div class="counter-box">
@@ -57,7 +59,9 @@
                 
                 <div class="counter-box">
                     <div class="icon">&#128101;</div> <!-- Example icon for Total Customer -->
-                    <h2 id="totalCustomerCount">0</h2>
+                    <h2 id="totalCustomerCount">
+                        <%= request.getAttribute("totalCustomerCount") != null ? request.getAttribute("totalCustomerCount") : 0 %>
+                    </h2>
                     <p>Total Customer</p>
                     <small>Total No of Customers</small>
                 </div>
