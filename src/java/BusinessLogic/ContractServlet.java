@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.ResultSet;
+import java.util.HashSet;
 
 
 /**
@@ -71,25 +72,48 @@ public class ContractServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Integer clientId = (Integer) session.getAttribute("clientId");
 
-        if (clientId == null) {
-            // If client is not logged in, redirect to login page
-            response.sendRedirect("clientLogin.jsp");
-            return;
-        }
+//        if (clientId == null) {
+//            // If client is not logged in, redirect to login page
+//            response.sendRedirect("clientLogin.jsp");
+//            return;
+//        }
 
         // Fetch active contracts for the logged-in client
-        List<Contract> activeContracts = getActiveContractsByClient(clientId);
+       try (Connection conn = DBConnection.getConnection()) {
+    String sql = "SELECT * FROM contracts WHERE client_id = ?";
+    PreparedStatement stmt = conn.prepareStatement(sql);
+    stmt.setInt(1, clientId);
 
-        // Set the contracts in request attribute to forward to the JSP
-        request.setAttribute("activeContracts", activeContracts);
+    ResultSet rs = stmt.executeQuery();
+    List<Contract> contracts = new ArrayList<>();
 
-        // Forward the request to the JSP for rendering
-        request.getRequestDispatcher("contracts.jsp").forward(request, response);
+    while (rs.next()) {
+        Contract contract = new Contract(
+            rs.getInt("contract_id"),
+            rs.getInt("client_id"),
+            rs.getString("contract_terms"),
+            rs.getDate("start_date"),
+            rs.getDate("end_date"),
+            rs.getDate("renewal_date")
+        );
+        contracts.add(contract);
+    }
+
+    // Set the contracts list as a request attribute
+    request.setAttribute("contracts", contracts);
+
+} catch (SQLException e) {
+    e.printStackTrace();
+    // Handle exceptions as necessary
+}
+
+// Forward to contracts.jsp
+    request.getRequestDispatcher("contracts.jsp").forward(request, response);
     }
     
     private List<Contract> getActiveContractsByClient(int clientId) {
         List<Contract> contracts = new ArrayList<>();
-        String query = "SELECT * FROM contracts WHERE client_id = ? AND start_date <= CURRENT_DATE AND end_date >= CURRENT_DATE";
+        String query = "SELECT * FROM contracts WHERE client_id = ?";
         
         try (Connection conn = DBConnection.getConnection(); 
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -102,6 +126,8 @@ public class ContractServlet extends HttpServlet {
                 contract.setContractTerms(rs.getString("contract_terms"));
                 contract.setStartDate(rs.getDate("start_date"));
                 contract.setEndDate(rs.getDate("end_date"));
+                contract.setRenewalDate(rs.getDate("renewal_date"));
+                
                 contracts.add(contract);
             }
         } catch (SQLException e) {
@@ -125,7 +151,7 @@ public class ContractServlet extends HttpServlet {
         String contractTerms = request.getParameter("contractTerms");
         String startDate = request.getParameter("startDate");
         String endDate = request.getParameter("endDate");
-        String renewalDate = request.getParameter("renewalDate");
+        java.sql.Date renewalDate = calculateRenewalDate(java.sql.Date.valueOf(endDate));
 
         try (Connection conn = DBConnection.getConnection()) {
             // SQL query to insert a new contract
@@ -135,17 +161,23 @@ public class ContractServlet extends HttpServlet {
                 stmt.setString(2, contractTerms);
                 stmt.setDate(3, java.sql.Date.valueOf(startDate));
                 stmt.setDate(4, java.sql.Date.valueOf(endDate));
-                stmt.setDate(5, java.sql.Date.valueOf(renewalDate));
+                stmt.setDate(5, renewalDate);
                 stmt.executeUpdate();
             }
             
-            response.sendRedirect("contracts.jsp?message=Contract added successfully");
+            response.sendRedirect("successPage.jsp");
 
         } catch (SQLException e) {
             e.printStackTrace();
             response.sendRedirect("contracts.jsp?error=Error adding contract");
         }
     }
+    private java.sql.Date calculateRenewalDate(java.sql.Date endDate) {
+    java.util.Calendar calendar = java.util.Calendar.getInstance();
+    calendar.setTime(endDate);
+    calendar.add(java.util.Calendar.DAY_OF_MONTH, 10);  
+    return new java.sql.Date(calendar.getTimeInMillis());
+}
     
      @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
