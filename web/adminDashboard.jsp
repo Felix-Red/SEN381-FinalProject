@@ -14,8 +14,8 @@
             <h2>Menu</h2>
             <ul>
                 <li><a href="DashboardServlet">DashBoard</a></li>
-                <li><a href="workOrder.jsp" onclick="loadContent('workOrder.jsp'); return false;">Work order</a></li>
-                <li><a href="displayRequests.jsp" onclick="loadContent('displayRequests.jsp'); return false;">Requests</a></li>
+                <li><a href="workOrder.jsp" onclick="loadContent('WorkOrderServlet'); return false;">Work order</a></li>
+                <li><a href="AssignTechnicianServlet" onclick="loadContent('displayRequests.jsp'); return false;">Requests</a></li>
                 <li><a href="TechniciansServlet" onclick="loadContent('TechniciansServlet'); return false;">Technicians</a></li>
                 <li><a href="employeeRegistry.jsp" onclick="loadContent('employeeRegistry.jsp'); return false;">Register Employee</a></li>
                 <li><a href="FeedbackServlet" onclick="loadContent('FeedbackServlet'); return false;">FeedBack</a></li>

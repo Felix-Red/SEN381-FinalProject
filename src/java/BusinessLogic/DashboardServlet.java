@@ -39,7 +39,7 @@ public class DashboardServlet extends HttpServlet {
             }
 
             // Get new request count
-            String sqlRequests = "SELECT COUNT(*) AS count FROM requests";
+            String sqlRequests = "SELECT COUNT(*) AS count FROM requests WHERE technician_id IS NULL";
             PreparedStatement stmtRequests = conn.prepareStatement(sqlRequests);
             ResultSet rsRequests = stmtRequests.executeQuery();
 

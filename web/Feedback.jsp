@@ -24,7 +24,7 @@
 
         <!-- Feedback Table -->
         <div class="feedback-table">
-            <table border="1" cellpadding="10" cellspacing="0">
+            <table cellpadding="10" cellspacing="0">
                 <thead>
                     <tr>
                         <th>Customer Name</th>

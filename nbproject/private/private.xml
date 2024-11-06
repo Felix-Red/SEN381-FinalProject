@@ -5,22 +5,26 @@
         <group>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/conf/MANIFEST.MF</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/clientLogin.jsp</file>
+            <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/BusinessLogic/WorkOrderServlet.java</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/Styling/adminDashboard.css</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/dbconfig.properties</file>
+            <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/Styling/displayRequests.css</file>
+            <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/nbproject/build-impl.xml~</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/testConnection.jsp</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/BusinessLogic/RegisterServlet.java</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/DataLayer/TestDBConnection.java</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/BusinessLogic/EditTechnicianServlet.java</file>
+            <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/serviceRequests.jsp</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/Styling/clientDashboard.css</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/registration.jsp</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/serviceDesk.jsp</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/Styling/indexStyles.css</file>
+            <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/DataLayer/Request.java</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/BusinessLogic/EmployeeLoginServlet.java</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/DataLayer/Management.java</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/DataLayer/FeedbackEntry.java</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/script.js</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/DataLayer/DBConnection.java</file>
-            <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/nbproject/build-impl.xml</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/Feedback.jsp</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/Styling/clientLoginStyles.css</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/displayRequests.jsp</file>
@@ -42,8 +46,10 @@
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/BusinessLogic/UpdateTechnicianServlet.java</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/BusinessLogic/clientManagementServlet.java</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/DataLayer/Client.java</file>
+            <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/contracts.jsp</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/Technicians.jsp</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/META-INF/context.xml</file>
+            <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/BusinessLogic/ContractServlet.java</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/employeeLogin.jsp</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/BusinessLogic/DeleteTechnicianServlet.java</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/employeeRegistry.jsp</file>

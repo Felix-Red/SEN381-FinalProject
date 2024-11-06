@@ -30,7 +30,7 @@
             <h3>Welcome, <span id="clientName"><%= clientName %></span></h3>
             <nav>
                     <li><a href="#" onclick="loadContent('overview.jsp')">Overview</a></li>
-                    <li><a href="#" onclick="loadContent('contracts.jsp')">My Contracts</a></li>
+                    <li><a href="#" onclick="loadContent('ContractServlet')">My Contracts</a></li>
                     <li><a href="#" onclick="loadContent('serviceRequests.jsp')">Service Requests</a></li>
                     <li><a href="#" onclick="loadContent('clientSatisfaction.jsp')">Customer Satisfaction</a></li>
                 

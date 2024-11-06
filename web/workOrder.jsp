@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work Order - Page 1</title>
+    <title>Work Order Dashboard</title>
     <link rel="stylesheet" href="Styling/style.css">
     <link rel="stylesheet" href="Styling/workOrder.css">
 </head>
@@ -26,27 +27,35 @@
                     <th>Request Information</th>
                     <th>Requester Name</th>
                     <th>Technician</th>
-                    <th>Assigned Date</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
+                <%
+                    List<String[]> workOrders = (List<String[]>) request.getAttribute("workOrders");
+
+                    if (workOrders != null && !workOrders.isEmpty()) {
+                        int rowNumber = 1;
+                        for (String[] workOrder : workOrders) {
+                %>
                 <tr>
-                    <td>1</td>
-                    <td>7</td>
-                    <td>Keyboard Problem</td>
-                    <td>Saina Naik</td>
-                    <td>Sanjay Joshi</td>
-                    <td>2021-07-21</td>
+                    <td><%= rowNumber++ %></td>
+                    <td><%= workOrder[0] %></td>
+                    <td><%= workOrder[1] %></td>
+                    <td><%= workOrder[2] %></td>
+                    <td><%= workOrder[3] %></td>
+                    <td><%= workOrder[4] %></td>
                 </tr>
+                <%
+                        }
+                    } else {
+                %>
                 <tr>
-                    <td>2</td>
-                    <td>17</td>
-                    <td>Laptop Screen Issue</td>
-                    <td>Trupti Smandrekar</td>
-                    <td>Raj Naik</td>
-                    <td>2021-07-08</td>
+                    <td colspan="6">No work orders available.</td>
                 </tr>
-                <!-- Add more rows as needed -->
+                <%
+                    }
+                %>
             </tbody>
         </table>
     </div>

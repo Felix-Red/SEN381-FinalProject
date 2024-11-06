@@ -1,9 +1,3 @@
-<%-- 
-    Document   : serviceRequests
-    Created on : 06 Nov 2024, 14:13:31
-    Author     : user-pc
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

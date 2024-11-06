@@ -80,7 +80,7 @@ public class ContractServlet extends HttpServlet {
 
         // Fetch active contracts for the logged-in client
        try (Connection conn = DBConnection.getConnection()) {
-    String sql = "SELECT * FROM contracts WHERE client_id = ?";
+    String sql = "SELECT * FROM contract WHERE client_id = ?";
     PreparedStatement stmt = conn.prepareStatement(sql);
     stmt.setInt(1, clientId);
 
@@ -113,7 +113,7 @@ public class ContractServlet extends HttpServlet {
     
     private List<Contract> getActiveContractsByClient(int clientId) {
         List<Contract> contracts = new ArrayList<>();
-        String query = "SELECT * FROM contracts WHERE client_id = ?";
+        String query = "SELECT * FROM contract WHERE client_id = ?";
         
         try (Connection conn = DBConnection.getConnection(); 
              PreparedStatement stmt = conn.prepareStatement(query)) {
