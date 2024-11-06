@@ -1,0 +1,33 @@
+/* Technician Table */
+.content {
+    margin: 20px;
+}
+
+.technician-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.technician-table th, .technician-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.technician-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.technician-table tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.technician-table tr:hover {
+    background-color: #f1f1f1;
+}
+

@@ -7,7 +7,9 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library dirs="200">
-                    <file>${libs.CopyLibs.classpath}</file>
+<<<<<<< HEAD
+=======
+                    <file>${file.reference.postgresql-42.7.4.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
@@ -15,7 +17,20 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
+>>>>>>> 065194eaf4433840693cbc86cec4c4c5b64d6bb7
+                    <file>${libs.CopyLibs.classpath}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="200">
+<<<<<<< HEAD
+                    <file>${file.reference.sendgrid-java.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="200">
                     <file>${file.reference.postgresql-42.7.4.jar}</file>
+=======
+                    <file>${file.reference.postgresql-42.7.4.jar-1}</file>
+>>>>>>> 065194eaf4433840693cbc86cec4c4c5b64d6bb7
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
