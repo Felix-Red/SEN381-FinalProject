@@ -24,6 +24,7 @@ import com.sendgrid.Content;
 import com.sendgrid.Email;
 import com.sendgrid.Mail;
 import com.sendgrid.Method;
+
 import com.sendgrid.Request;
 import com.sendgrid.SendGrid;
 import java.util.Properties;

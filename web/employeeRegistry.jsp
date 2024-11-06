@@ -15,7 +15,29 @@
     <body>
         <div class="container">
         <h1>ApexCare Employee Registration</h1>
-        <form action="RegisterServlet" method="post" class="registration-form">
+        
+           <!-- Display success or error message -->
+            <%
+                String successMessage = (String) request.getAttribute("successMessage");
+                String errorMessage = (String) request.getAttribute("errorMessage");
+                if (successMessage != null) {
+            %>
+                <div class="success-message" style="color: green; margin-bottom: 10px;">
+                    <%= successMessage %>
+                </div>
+            <%
+                }
+                if (errorMessage != null) {
+            %>
+                <div class="error-message" style="color: red; margin-bottom: 10px;">
+                    <%= errorMessage %>
+                </div>
+            <%
+                }
+            %>
+
+        
+        <form action="EmployeeRegistryServlet" method="post" class="registration-form">
             <!-- Basic Client Details -->
             <div class="form-section">
                 <h2>Basic Information</h2>
@@ -24,10 +46,7 @@
                         <label for="name">Full Name:</label>
                         <input type="text" id="name" name="name" required>
                     </div>
-                    <div class="form-row">
-                        <label for="company">Company Name:</label>
-                        <input type="text" id="company" name="company">
-                    </div>
+                 
                     <div class="form-row">
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" required>
@@ -43,21 +62,6 @@
                 </div>
             </div>
 
-            <!-- Contract and Service Details -->
-            <div class="form-section">
-                <h2>Contract Details</h2>
-                <div class="grid-container">
-
-                    <div class="form-row">
-                        <label for="startDate">Contract Start Date:</label>
-                        <input type="date" id="startDate" name="startDate" required>
-                    </div>
-                    <div class="form-row">
-                        <label for="endDate">Contract End Date:</label>
-                        <input type="date" id="endDate" name="endDate">
-                    </div>
-                </div>
-            </div>
 
             <!-- Login Details -->
             <div class="form-section">
