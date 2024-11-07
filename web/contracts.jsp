@@ -1,8 +1,3 @@
-<%-- 
-    Document   : contracts
-    Created on : 05 Nov 2024, 11:24:45
-    Author     : user-pc
---%>
 
 <%@page import="java.util.List"%>
 <%@page import="DataLayer.Contract"%>
@@ -12,33 +7,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        h1 {
-            color: #333;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        input[type="button"], input[type="submit"] {
-            padding: 10px;
-            margin: 5px;
-            cursor: pointer;
-        }
-    </style>
+        
+       <link rel="stylesheet" href="Styling/contracts.css">
+    
     </head>
     <body>
         <h1>Contract Management</h1><br><br>

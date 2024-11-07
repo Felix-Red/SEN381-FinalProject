@@ -1,8 +1,4 @@
-<%-- 
-    Document   : registration
-    Created on : 29 Oct 2024, 11:34:11
-    Author     : felix
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,12 +7,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Registration</title>
         <link rel="stylesheet" href="Styling/employeeRegistry.css">
-        
+        <link rel="stylesheet" href="Styling/adminDashboard.css">
     </head>
     <body>
-        <div class="container">
-        <h1>ApexCare Employee Registration</h1>
-        
+         <div class="header">
+                <h1>Employee Registry</h1>
+                <p></p>
+            </div>
+        <div class="content>
            <!-- Display success or error message -->
             <%
                 String successMessage = (String) request.getAttribute("successMessage");
@@ -62,8 +60,7 @@
                     </div>
                 </div>
             </div>
-
-
+            <p></p>
             <!-- Login Details -->
             <div class="form-section">
                 <h2>Login Details</h2>

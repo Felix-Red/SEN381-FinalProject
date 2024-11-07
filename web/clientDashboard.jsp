@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>ApexCare Solutions Dashboard</title>
         <link rel="stylesheet" href="Styling/clientDashboard.css"/>
+        <script src="https://unpkg.com/@phosphor-icons/web"></script>
     </head>
     <body>
        <div class="container">
@@ -27,13 +28,13 @@
                     clientName = "Guest"; // Default name if not logged in
                 }
             %>
-            <h3>Welcome, <span id="clientName"><%= clientName %></span></h3>
+            <h3><i class="ph ph-hand-waving"></i> Welcome, <span id="clientName"><%= clientName %></span></h3>
             <nav>
-                    <li><a href="#" onclick="loadContent('overview.jsp')">Overview</a></li>
-                    <li><a href="#" onclick="loadContent('ContractServlet')">My Contracts</a></li>
-                    <li><a href="#" onclick="loadContent('serviceRequests.jsp')">Service Requests</a></li>
-                    <li><a href="#" onclick="loadContent('clientSatisfaction.jsp')">Customer Satisfaction</a></li>
-                
+                    <li> <a href="#" onclick="loadContent('overview.jsp')"><i class="ph ph-user"></i> Overview</a></li>
+                    <li> <a href="#" onclick="loadContent('ContractServlet')"><i class="ph ph-address-book-tabs"></i> My Contracts</a></li>
+                    <li><a href="#" onclick="loadContent('serviceRequests.jsp')"> <i class="ph ph-paper-plane-tilt"></i> Service Requests</a></li>
+                    <li><a href="#" onclick="loadContent('clientSatisfaction.jsp')"><i class="ph ph-smiley"></i> Customer Satisfaction</a></li>
+                    <li><a href="index.jsp"><i class="ph ph-sign-out"></i> Logout</a></li>
             </nav>
         </aside>
             

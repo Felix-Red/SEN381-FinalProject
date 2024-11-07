@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/conf/MANIFEST.MF</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/clientLogin.jsp</file>
+            <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/Styling/serviceRequestSuccess.css</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/BusinessLogic/WorkOrderServlet.java</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/Styling/adminDashboard.css</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/dbconfig.properties</file>
@@ -18,6 +19,7 @@
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/Styling/clientDashboard.css</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/registration.jsp</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/serviceDesk.jsp</file>
+            <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/Styling/employeeRegistry.css</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/Styling/indexStyles.css</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/DataLayer/Request.java</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/BusinessLogic/EmployeeLoginServlet.java</file>
@@ -26,7 +28,9 @@
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/script.js</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/DataLayer/DBConnection.java</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/Feedback.jsp</file>
+            <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/Styling/contracts.css</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/Styling/clientLoginStyles.css</file>
+            <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/BusinessLogic/ServiceRequestServlet.java</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/displayRequests.jsp</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/WEB-INF/classes/dbconfig.properties</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/adminDashboard.jsp</file>
@@ -36,9 +40,10 @@
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/Styling/technicians.css</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/BusinessLogic/addTechnicianServlet.java</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/Styling/addTechnician.css</file>
+            <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/overview.jsp</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/BusinessLogic/FeedbackServlet.java</file>
-            <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/customerStatisfaction.jsp</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/addTechnician.jsp</file>
+            <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/successPage.jsp</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/DataLayer/Technicians.java</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/Styling/employeeLoginStyles.css</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/Styling/clientManagementStyling.css</file>
@@ -55,6 +60,8 @@
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/employeeRegistry.jsp</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/workOrder.jsp</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/BusinessLogic/DashboardServlet.java</file>
+            <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/clientSatisfaction.jsp</file>
+            <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/serviceRequestSuccess.jsp</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/clientDashboard.jsp</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/web/clientManagement.jsp</file>
             <file>file:/C:/Users/felix/Documents/NetBeansProjects/SEN381-FinalProject/src/java/BusinessLogic/loginServlet.java</file>

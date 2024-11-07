@@ -1,73 +1,89 @@
-<%-- 
-    Document   : successPage
-    Created on : 06 Nov 2024, 16:09:08
-    Author     : user-pc
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <style>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Request Success</title>
+    <style>
+        /* Reset some default styles */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7fa;
-            color: #333;
             margin: 0;
             padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
         }
 
-        .container {
-            width: 100%;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        /* Container for the success card */
+        .success-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff; /* Light background for better visuals */
+        }
+
+        /* Card style */
+        .success-card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             text-align: center;
+            max-width: 500px;
+            width: 100%;
         }
 
-        h1 {
-            font-size: 24px;
-            color: #4CAF50;  
+        /* Success icon style */
+        .icon-container {
             margin-bottom: 20px;
         }
 
-        p {
-            font-size: 16px;
+        .success-icon {
+            font-size: 60px;
+            color: #28a745; /* Green color for success */
+        }
+
+        /* Main title */
+        .success-card h1 {
+            color: #333;
+            font-size: 28px;
             margin-bottom: 15px;
         }
 
-        a {
-            text-decoration: none;
+        /* Description text */
+        .success-card p {
+            color: #555;
             font-size: 16px;
-            color: #007bff;
-            border: 2px solid #007bff;
-            padding: 10px 20px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
+            margin-bottom: 25px;
         }
 
-        a:hover {
+        /* Primary button style */
+        .btn-primary {
+            display: inline-block;
             background-color: #007bff;
-            color: white;
+            color: #ffffff;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
         }
 
-        .message {
-            margin: 20px 0;
-            padding: 10px;
-            background-color: #e7f7e7;
-            border: 1px solid #4CAF50;
-            border-radius: 5px;
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker shade of blue for hover effect */
         }
     </style>
-    </head>
-    <body>
-        <h1>Contract Added Successfully</h1>
-    <p>Your contract has been successfully added to the system.</p>
-    <p><a href="clientDashboard.jsp">Back to Dashboard</a></p>
-    </body>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-card">
+            <div class="icon-container">
+                <span class="success-icon">&#10004;</span> <!-- Check mark icon -->
+            </div>
+            <h1>Contract Added Successfully!</h1>
+            <p>YYour contract has been successfully added to the system.</p>
+            <a href="clientDashboard.jsp" class="btn-primary">Return to Dashboard</a>
+        </div>
+    </div>
+</body>
 </html>
