@@ -17,6 +17,10 @@ Key Features:
 ## Screenshots
 ![](https://github.com/Felix-Red/SEN381-FinalProject/blob/master/1.png)
 
+![](https://github.com/Felix-Red/SEN381-FinalProject/blob/master/2.png)
+
+![](https://github.com/Felix-Red/SEN381-FinalProject/blob/master/Screenshot%202024-11-07%20191603.png)
+
 
 
 
