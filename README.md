@@ -9,10 +9,13 @@ Key Features:
 - Contract Management: Clients can create and terminate contracts.
 - Employee Registration: Allows admins to register employees with details like name, email, and phone number.
 
-##Technology Stack
+## Technology Stack
 - Backend: Java Servlets (using Apache Tomcat)
 - Frontend: JSP, CSS, JavaScript
 - Database: PostgreSQL (connected via JDBC), hosted on AWS free tier
+
+## Screenshots
+![](https://github.com/Felix-Red/SEN381-FinalProject/blob/master/1.png)
 
 
 
