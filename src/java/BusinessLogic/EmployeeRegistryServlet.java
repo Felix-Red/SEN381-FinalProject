@@ -1,9 +1,9 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
+* Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+* Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+*/
 package BusinessLogic;
-
+ 
 import DataLayer.DBConnection;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,14 +14,14 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
+ 
 /**
- * EmployeeRegistryServlet handles employee registration by saving form data to
- * the Employees table in the database.
- */
+* EmployeeRegistryServlet handles employee registration by saving form data to
+* the Employees table in the database.
+*/
 @WebServlet(name = "EmployeeRegistryServlet", urlPatterns = {"/RegisterServlet"})
 public class EmployeeRegistryServlet extends HttpServlet {
-
+ 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,7 +36,7 @@ public class EmployeeRegistryServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         response.getWriter().println("<h1>Employee Registration Servlet</h1>");
     }
-
+ 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -51,7 +51,7 @@ public class EmployeeRegistryServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
+ 
     /**
      * Handles the HTTP <code>POST</code> method to register a new employee.
      *
@@ -63,7 +63,7 @@ public class EmployeeRegistryServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+ 
         // Retrieve form data
         String name = request.getParameter("name");
         String email = request.getParameter("email");
@@ -72,20 +72,19 @@ public class EmployeeRegistryServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
-
+ 
         // Validate passwords
         if (!password.equals(confirmPassword)) {
             request.setAttribute("errorMessage", "Passwords do not match.");
-            request.getRequestDispatcher("registration.jsp").forward(request, response);
+            request.getRequestDispatcher("employeeeRegistry.jsp").forward(request, response);
             return;
         }
-
+ 
         // Insert employee data into the database
         String query = "INSERT INTO employees (name, email, phone, address, username, password) VALUES (?, ?, ?, ?, ?, ?)";
-        
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
-
+ 
             // Set query parameters
             stmt.setString(1, name);
             stmt.setString(2, email);
@@ -93,10 +92,9 @@ public class EmployeeRegistryServlet extends HttpServlet {
             stmt.setString(4, address);
             stmt.setString(5, username);
             stmt.setString(6, password);
-
+ 
             // Execute the query
             int rowsInserted = stmt.executeUpdate();
-            
             if (rowsInserted > 0) {
                 // Success message
                 request.setAttribute("successMessage", "Registration successful!");
@@ -106,14 +104,13 @@ public class EmployeeRegistryServlet extends HttpServlet {
                 request.setAttribute("errorMessage", "Registration failed. Please try again.");
                 request.getRequestDispatcher("employeeRegistry.jsp").forward(request, response);
             }
-            
         } catch (SQLException e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "An error occurred during registration. Please try again later.");
             request.getRequestDispatcher("employeeRegistry.jsp").forward(request, response);
         }
     }
-
+ 
     /**
      * Returns a short description of the servlet.
      *

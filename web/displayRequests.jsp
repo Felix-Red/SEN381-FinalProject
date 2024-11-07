@@ -12,12 +12,11 @@
 </head>
 <body>
     <div class="header">
-            <h1>Requests Dashboard</h1>
-            <p>Overview of all client requests</p>
-        </div>
+        <h1>Requests Dashboard</h1>
+        <p>Overview of all client requests</p>
+    </div>
     <div class="content">
-        
-        <%
+        <% 
             // Get the technician list from the database
             List<Technicians> technicianList = new ArrayList<>();
             try (Connection conn = DBConnection.getConnection()) {
@@ -35,27 +34,6 @@
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-            }
-
-            // Handle form submission to assign a technician to a request
-            String technicianIdParam = request.getParameter("technicianId");
-            String requestIdParam = request.getParameter("requestId");
-            if (technicianIdParam != null && requestIdParam != null) {
-                try (Connection conn = DBConnection.getConnection()) {
-                    String updateSql = "UPDATE requests SET technician_id = ? WHERE request_id = ?";
-                    PreparedStatement updateStmt = conn.prepareStatement(updateSql);
-                    updateStmt.setInt(1, Integer.parseInt(technicianIdParam));
-                    updateStmt.setInt(2, Integer.parseInt(requestIdParam));
-                    int rowsUpdated = updateStmt.executeUpdate();
-
-                    if (rowsUpdated > 0) {
-                        out.println("<p style='color:green;'>Technician assigned successfully to request ID: " + requestIdParam + "</p>");
-                    } else {
-                        out.println("<p style='color:red;'>Failed to assign technician to request ID: " + requestIdParam + "</p>");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }
         %>
 
@@ -99,8 +77,8 @@
                     <td><%= req.getRequestDetails() %></td>
                     <td><%= req.getTechnicianId() == 0 ? "Not Assigned" : req.getTechnicianId() %></td>
                     <td>
-                        <form method="post" action="displayRequests.jsp">
-                            <select name="technicianId" required>
+                        <form id="assignForm_<%= req.getRequestId() %>" onsubmit="assignTechnician(event, <%= req.getRequestId() %>)">
+                            <select name="technicianId" id="technicianId_<%= req.getRequestId() %>" required>
                                 <option value="">Select Technician</option>
                                 <%
                                     for (Technicians tech : technicianList) {
@@ -110,7 +88,6 @@
                                     }
                                 %>
                             </select>
-                            <input type="hidden" name="requestId" value="<%= req.getRequestId() %>" />
                             <button type="submit">Assign</button>
                         </form>
                     </td>
@@ -128,5 +105,53 @@
             </tbody>
         </table>
     </div>
+    
+    <script>
+        function assignTechnician(event, requestId) {
+            event.preventDefault(); // Prevent the default form submission
+            
+            const technicianId = document.getElementById(`technicianId_${requestId}`).value;
+
+            if (technicianId === "") {
+                alert("Please select a technician");
+                return;
+            }
+
+            // Use fetch to send an AJAX request to update the assignment
+            fetch('displayRequests.jsp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `requestId=${requestId}&technicianId=${technicianId}`
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw new Error('Failed to assign technician');
+                }
+            })
+            .then(data => {
+                // Refresh the content dynamically
+                loadContent('displayRequests.jsp');
+                alert('Technician assigned successfully!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to assign technician.');
+            });
+        }
+
+        // Function to load the content dynamically while keeping the sidebar intact
+        function loadContent(page) {
+            fetch(page)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('main-content').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading content:', error));
+        }
+    </script>
 </body>
 </html>

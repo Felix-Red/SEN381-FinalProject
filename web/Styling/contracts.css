@@ -82,3 +82,17 @@
             font-weight: bold;
             margin-top: 10px;
         }
+        
+        .btn-terminate {
+        background-color: red;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .btn-terminate:hover {
+        background-color: #cc0000;
+    }

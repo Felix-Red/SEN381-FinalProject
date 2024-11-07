@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package BusinessLogic;
 
 import DataLayer.Contract;
@@ -17,34 +13,21 @@ import jakarta.servlet.http.HttpSession;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Level;
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.ResultSet;
-import java.util.HashSet;
-
 
 /**
- *
- * @author user-pc
+ * ContractServlet handles contract management for clients, including fetching,
+ * creating, and deleting contracts.
  */
 @WebServlet(name = "ContractServlet", urlPatterns = {"/ContractServlet"})
 public class ContractServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -57,100 +40,108 @@ public class ContractServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Integer clientId = (Integer) session.getAttribute("clientId");
 
-//        if (clientId == null) {
-//            // If client is not logged in, redirect to login page
-//            response.sendRedirect("clientLogin.jsp");
-//            return;
-//        }
-
         // Fetch active contracts for the logged-in client
-       try (Connection conn = DBConnection.getConnection()) {
-    String sql = "SELECT * FROM contract WHERE client_id = ?";
-    PreparedStatement stmt = conn.prepareStatement(sql);
-    stmt.setInt(1, clientId);
-
-    ResultSet rs = stmt.executeQuery();
-    List<Contract> contracts = new ArrayList<>();
-
-    while (rs.next()) {
-        Contract contract = new Contract(
-            rs.getInt("contract_id"),
-            rs.getInt("client_id"),
-            rs.getString("contract_terms"),
-            rs.getDate("start_date"),
-            rs.getDate("end_date"),
-            rs.getDate("renewal_date")
-        );
-        contracts.add(contract);
-    }
-
-    // Set the contracts list as a request attribute
-    request.setAttribute("contracts", contracts);
-
-} catch (SQLException e) {
-    e.printStackTrace();
-    // Handle exceptions as necessary
-}
-
-// Forward to contracts.jsp
-    request.getRequestDispatcher("contracts.jsp").forward(request, response);
-    }
-    
-    private List<Contract> getActiveContractsByClient(int clientId) {
-        List<Contract> contracts = new ArrayList<>();
-        String query = "SELECT * FROM contract WHERE client_id = ?";
-        
-        try (Connection conn = DBConnection.getConnection(); 
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = "SELECT * FROM contract WHERE client_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, clientId);
 
             ResultSet rs = stmt.executeQuery();
+            List<Contract> contracts = new ArrayList<>();
+
             while (rs.next()) {
-                Contract contract = new Contract();
-                contract.setContractId(rs.getInt("contract_id"));
-                contract.setContractTerms(rs.getString("contract_terms"));
-                contract.setStartDate(rs.getDate("start_date"));
-                contract.setEndDate(rs.getDate("end_date"));
-                contract.setRenewalDate(rs.getDate("renewal_date"));
-                
+                Contract contract = new Contract(
+                    rs.getInt("contract_id"),
+                    rs.getInt("client_id"),
+                    rs.getString("contract_terms"),
+                    rs.getDate("start_date"),
+                    rs.getDate("end_date"),
+                    rs.getDate("renewal_date")
+                );
                 contracts.add(contract);
             }
+
+            // Set the contracts list as a request attribute
+            request.setAttribute("contracts", contracts);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return contracts;
-    }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        int clientId = Integer.parseInt(request.getParameter("clientId"));
+        // Forward to contracts.jsp
+        request.getRequestDispatcher("contracts.jsp").forward(request, response);
+    }
+@Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+
+    // Determine if the request is to delete or add a contract
+    String methodType = request.getParameter("_method");
+    if (methodType != null && methodType.equals("delete")) {
+        // Handle deletion of a contract
+        int contractId = Integer.parseInt(request.getParameter("contractId"));
+
+        try (Connection conn = DBConnection.getConnection()) {
+            // SQL query to delete a contract
+            String sql = "DELETE FROM public.contract WHERE contract_id = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, contractId);
+                stmt.executeUpdate();
+            }
+            response.sendRedirect("deleteSuccess.jsp");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Error deleting contract.");
+            request.getRequestDispatcher("contracts.jsp").forward(request, response);
+        }
+    } else {
+        // Handle adding a new contract
+
+        // Retrieve the clientId from the request or the session
+        String clientIdParam = request.getParameter("clientId");
+        HttpSession session = request.getSession();
+        Integer clientId = null;
+
+        // Attempt to retrieve clientId from request
+        if (clientIdParam != null && !clientIdParam.isEmpty()) {
+            try {
+                clientId = Integer.parseInt(clientIdParam);
+            } catch (NumberFormatException e) {
+                request.setAttribute("errorMessage", "Invalid client ID.");
+                request.getRequestDispatcher("contracts.jsp").forward(request, response);
+                return;
+            }
+        }
+
+        // If clientId is still null, try to get it from session
+        if (clientId == null) {
+            clientId = (Integer) session.getAttribute("clientId");
+            if (clientId == null) {
+                request.setAttribute("errorMessage", "Client ID not found. Please log in.");
+                request.getRequestDispatcher("contracts.jsp").forward(request, response);
+                return;
+            }
+        }
+
+        // Retrieve other form data
         String contractTerms = request.getParameter("contractTerms");
         String startDate = request.getParameter("startDate");
         String endDate = request.getParameter("endDate");
+
+        if (contractTerms == null || startDate == null || endDate == null) {
+            request.setAttribute("errorMessage", "All form fields are required.");
+            request.getRequestDispatcher("contracts.jsp").forward(request, response);
+            return;
+        }
+
+        // Calculate renewal date based on the end date
         java.sql.Date renewalDate = calculateRenewalDate(java.sql.Date.valueOf(endDate));
 
         try (Connection conn = DBConnection.getConnection()) {
@@ -164,22 +155,26 @@ public class ContractServlet extends HttpServlet {
                 stmt.setDate(5, renewalDate);
                 stmt.executeUpdate();
             }
-            
+
             response.sendRedirect("successPage.jsp");
 
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("contracts.jsp?error=Error adding contract");
+            request.setAttribute("errorMessage", "An error occurred during contract creation. Please try again.");
+            request.getRequestDispatcher("contracts.jsp").forward(request, response);
         }
     }
-    private java.sql.Date calculateRenewalDate(java.sql.Date endDate) {
-    java.util.Calendar calendar = java.util.Calendar.getInstance();
-    calendar.setTime(endDate);
-    calendar.add(java.util.Calendar.DAY_OF_MONTH, 10);  
-    return new java.sql.Date(calendar.getTimeInMillis());
 }
-    
-     @Override
+
+
+    private java.sql.Date calculateRenewalDate(java.sql.Date endDate) {
+        java.util.Calendar calendar = java.util.Calendar.getInstance();
+        calendar.setTime(endDate);
+        calendar.add(java.util.Calendar.DAY_OF_MONTH, 10);
+        return new java.sql.Date(calendar.getTimeInMillis());
+    }
+
+    @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve contract_id from the request to delete a specific contract
         int contractId = Integer.parseInt(request.getParameter("contractId"));
@@ -199,14 +194,8 @@ public class ContractServlet extends HttpServlet {
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+        return "Contract Servlet for handling contract management.";
+    }
 }
